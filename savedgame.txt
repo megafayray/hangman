@@ -1,5 +1,5 @@
-2025-01-16 11:55:45 -0500
-Letters guessed: []
+2025-01-16 12:37:12 -0500
+Letters guessed: ["m", "a"]
 Number of incorrect guesses: 0
-Current saved spaces to display: _  _  _  _  _  _  _  _  _ 
-Secret word: interests
+Current saved spaces to display: a _  _  _  m _  _  _  _  _  _ 
+Secret word: assumptions

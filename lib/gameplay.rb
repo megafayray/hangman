@@ -1,3 +1,5 @@
+require 'yaml'
+
 class Gameplay 
   attr_accessor :max_incorrect_guesses, :incorrect_guesses, :letters_guessed, :secret_word
   def initialize
@@ -20,12 +22,40 @@ class Gameplay
 
     f.close
 
-    select_secret_word
-
     @display = Display.new(self)
-    @display.info
-    @display.build
 
+    if File.exist?('savedgame.yml')
+      puts "Would you like to play a saved game? Enter 'y' or 'n'"
+      choice = gets.chomp.downcase
+
+      if choice == 'y'
+        load_saved_game
+      elsif choice == 'n'
+        start_new_game
+      end
+
+    else
+      start_new_game
+    end
+  end
+
+  def start_new_game
+    select_secret_word
+    @display.build
+    @display.info
+    cycle
+  end
+
+  def load_saved_game
+    saved_data = YAML.load_file('savedgame.yml')
+
+    @letters_guessed = saved_data[:letters_guessed]
+    @incorrect_guesses = saved_data[:incorrect_guesses]
+    @secret_word = saved_data[:secret_word]
+    
+    @display.spaces = saved_data[:spaces].split(' ')  # Make sure the spaces are correctly formatted
+    @display.info
+    puts @display.spaces.join(' ')
     cycle
   end
 

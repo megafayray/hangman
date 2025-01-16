@@ -1,5 +1,7 @@
 ---
-:letters_guessed: []
+:letters_guessed:
+- m
+- a
 :incorrect_guesses: 0
-:secret_word: interests
-:spaces: '_  _  _  _  _  _  _  _  _ '
+:secret_word: assumptions
+:spaces: 'a _  _  _  m _  _  _  _  _  _ '

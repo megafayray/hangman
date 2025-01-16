@@ -24,15 +24,6 @@ class Display
 
   def save_game? #maybe this should be private
     if @input == "\e"
-      savedgame = File.new('savedgame.txt', 'w')
-      savedgame.puts File.mtime 'savedgame.txt'
-      savedgame.puts "Letters guessed: #{@gameplay.letters_guessed}"
-      savedgame.puts "Number of incorrect guesses: #{@gameplay.incorrect_guesses}"
-      savedgame.puts "Current saved spaces to display: #{@spaces.join(' ')}"
-      savedgame.puts "Secret word: #{@gameplay.secret_word}"
-
-      savedgame.close
-
       File.open('savedgame.yml', 'w') do |file|
         file.write(YAML.dump({
           :letters_guessed => @gameplay.letters_guessed,
