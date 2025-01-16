@@ -1,0 +1,5 @@
+---
+:letters_guessed: []
+:incorrect_guesses: 0
+:secret_word: interests
+:spaces: '_  _  _  _  _  _  _  _  _ '

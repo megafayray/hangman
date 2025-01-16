@@ -1,3 +1,5 @@
+require 'yaml'
+
 class Display 
   attr_accessor :spaces
   def initialize(gameplay)
@@ -27,9 +29,19 @@ class Display
       savedgame.puts "Letters guessed: #{@gameplay.letters_guessed}"
       savedgame.puts "Number of incorrect guesses: #{@gameplay.incorrect_guesses}"
       savedgame.puts "Current saved spaces to display: #{@spaces.join(' ')}"
+      savedgame.puts "Secret word: #{@gameplay.secret_word}"
 
       savedgame.close
-    end
+
+      File.open('savedgame.yml', 'w') do |file|
+        file.write(YAML.dump({
+          :letters_guessed => @gameplay.letters_guessed,
+          :incorrect_guesses => @gameplay.incorrect_guesses,
+          :secret_word => @gameplay.secret_word.chomp,
+          :spaces => @spaces.join(' ')
+        }))
+      end
+    end  
   end
 
   def request_guess
