@@ -1,7 +1,8 @@
 require 'yaml'
 
-class Gameplay 
+class Gameplay
   attr_accessor :max_incorrect_guesses, :incorrect_guesses, :letters_guessed, :secret_word
+
   def initialize
     @max_incorrect_guesses = 6
     @incorrect_guesses = 0
@@ -32,12 +33,10 @@ class Gameplay
   def load_dictionary
     @dictionary = []
 
-    f = File.open("google-10000-english-no-swears.txt")
+    f = File.open('google-10000-english-no-swears.txt')
 
-    while line = f.gets do
-      if line.length > 4 && line.length < 13  
-        @dictionary << line
-      end
+    while line = f.gets
+      @dictionary << line if line.length > 4 && line.length < 13
     end
 
     f.close
@@ -52,7 +51,7 @@ class Gameplay
 
   def select_secret_word
     @secret_word = @dictionary.sample
-    #puts "The secret word is: #{@secret_word}" #for testing
+    # puts "The secret word is: #{@secret_word}" #for testing
   end
 
   def load_saved_game
@@ -61,17 +60,15 @@ class Gameplay
     @letters_guessed = saved_data[:letters_guessed]
     @incorrect_guesses = saved_data[:incorrect_guesses]
     @secret_word = saved_data[:secret_word]
-    
-    @display.spaces = saved_data[:spaces].split(' ')  # Make sure the spaces are correctly formatted
+
+    @display.spaces = saved_data[:spaces].split(' ') # Make sure the spaces are correctly formatted
     @display.info
     puts @display.spaces.join(' ')
     cycle
   end
 
   def cycle
-    until gameover
-      @display.request_guess
-    end
+    @display.request_guess until gameover
 
     puts "You #{@result}!"
     puts "The secret word was... #{@secret_word}"
@@ -79,13 +76,12 @@ class Gameplay
 
   def gameover
     if @incorrect_guesses > @max_incorrect_guesses
-      @result = "lost"
+      @result = 'lost'
       return true
     end
-    if !@display.spaces.join.include?('_')
-      @result = "won"
-      return true
-    end
+    return if @display.spaces.join.include?('_')
+
+    @result = 'won'
+    true
   end
-  
 end
