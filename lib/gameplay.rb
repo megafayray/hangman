@@ -1,5 +1,5 @@
 class Gameplay 
-  attr_accessor :max_incorrect_guesses, :incorrect_guesses, :letters_guessed
+  attr_accessor :max_incorrect_guesses, :incorrect_guesses, :letters_guessed, :secret_word
   def initialize
     @max_incorrect_guesses = 6
     @incorrect_guesses = 0
@@ -22,14 +22,36 @@ class Gameplay
 
     select_secret_word
 
-    display = Display.new(self)
-    display.info
-    display.build
+    @display = Display.new(self)
+    @display.info
+    @display.build
+
+    cycle
   end
 
   def select_secret_word
     @secret_word = @dictionary.sample
-    puts "The secret word is: #{@secret_word}" #debugging
+    puts "The secret word is: #{@secret_word}" #for testing
+  end
+
+  def cycle
+    until gameover
+      @display.request_guess
+    end
+
+    puts "You #{@result}!"
+    puts "The secret word was... #{@secret_word}"
+  end
+
+  def gameover
+    if @incorrect_guesses > @max_incorrect_guesses
+      @result = "lost"
+      return true
+    end
+    if !@display.spaces.join.include?('_')
+      @result = "won"
+      return true
+    end
   end
   
 end
