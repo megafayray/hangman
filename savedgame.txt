@@ -1,0 +1,4 @@
+2025-01-16 11:01:54 -0500
+Letters guessed: []
+Number of incorrect guesses: 0
+Current saved spaces to display: _  _  _  _ 
