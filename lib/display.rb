@@ -22,19 +22,6 @@ class Display
     puts @spaces.join(' ')
   end
 
-  def save_game? #maybe this should be private
-    if @input == "\e"
-      File.open('savedgame.yml', 'w') do |file|
-        file.write(YAML.dump({
-          :letters_guessed => @gameplay.letters_guessed,
-          :incorrect_guesses => @gameplay.incorrect_guesses,
-          :secret_word => @gameplay.secret_word.chomp,
-          :spaces => @spaces.join(' ')
-        }))
-      end
-    end  
-  end
-
   def request_guess
     puts "To save the game, press the Esc button. Otherwise, guess a letter"
     @input = gets.chomp.downcase
@@ -55,5 +42,20 @@ class Display
 
     info
     puts @spaces.join(' ')
+  end
+
+  private
+
+  def save_game?
+    if @input == "\e"
+      File.open('savedgame.yml', 'w') do |file|
+        file.write(YAML.dump({
+          :letters_guessed => @gameplay.letters_guessed,
+          :incorrect_guesses => @gameplay.incorrect_guesses,
+          :secret_word => @gameplay.secret_word.chomp,
+          :spaces => @spaces.join(' ')
+        }))
+      end
+    end  
   end
 end

@@ -1,7 +1,7 @@
 ---
 :letters_guessed:
-- m
-- a
+- h
+- e
 :incorrect_guesses: 0
-:secret_word: assumptions
-:spaces: 'a _  _  _  m _  _  _  _  _  _ '
+:secret_word: hearings
+:spaces: 'h e _  _  _  _  _  _ '

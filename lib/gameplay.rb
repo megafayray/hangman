@@ -10,17 +10,7 @@ class Gameplay
   end
 
   def begin
-    @dictionary = []
-
-    f = File.open("google-10000-english-no-swears.txt")
-
-    while line = f.gets do
-      if line.length > 4 && line.length < 13  
-        @dictionary << line
-      end
-    end
-
-    f.close
+    load_dictionary
 
     @display = Display.new(self)
 
@@ -39,11 +29,30 @@ class Gameplay
     end
   end
 
+  def load_dictionary
+    @dictionary = []
+
+    f = File.open("google-10000-english-no-swears.txt")
+
+    while line = f.gets do
+      if line.length > 4 && line.length < 13  
+        @dictionary << line
+      end
+    end
+
+    f.close
+  end
+
   def start_new_game
     select_secret_word
     @display.build
     @display.info
     cycle
+  end
+
+  def select_secret_word
+    @secret_word = @dictionary.sample
+    #puts "The secret word is: #{@secret_word}" #for testing
   end
 
   def load_saved_game
@@ -57,11 +66,6 @@ class Gameplay
     @display.info
     puts @display.spaces.join(' ')
     cycle
-  end
-
-  def select_secret_word
-    @secret_word = @dictionary.sample
-    puts "The secret word is: #{@secret_word}" #for testing
   end
 
   def cycle
